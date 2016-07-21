@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" > 
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/dodgerblue"
+            android:gravity="center_vertical" > 
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="下载"
+                android:textColor="@color/whitesmoke" />
+
+        </LinearLayout>
+    <ExpandableListView
+        android:id="@+id/mExpandableListView"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:childDivider="@color/list_divider" 
+        android:dividerHeight="1dip"/>
+
+</LinearLayout>

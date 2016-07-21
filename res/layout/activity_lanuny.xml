@@ -1,0 +1,61 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+ 
+  <LinearLayout
+      android:id="@+id/searchL1"
+      android:layout_width="fill_parent"
+      android:layout_height="50dp"
+      android:background="@color/dodgerblue"
+      android:orientation="horizontal" >
+
+ <ImageButton
+     android:id="@+id/homeButton"
+     android:layout_width="40dip"
+     android:layout_height="40dip"
+     android:layout_gravity="center_vertical"
+     android:background="@drawable/back"
+     android:padding="5dp" />
+
+      <EditText
+          android:id="@+id/search_Keywords"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginLeft="6dp"
+          android:layout_marginRight="6dp"
+          android:layout_weight="1.22"
+          android:background="@color/snow"
+          android:focusable="true"
+          android:focusableInTouchMode="true"
+          android:hint="关键字或者链接"
+          android:maxLength="1024"
+          android:paddingLeft="3dip"
+          android:singleLine="true"
+          android:textColor="@color/black"  
+          android:textSize="20sp" />
+
+      <ImageButton
+          android:id="@+id/imageButton1"
+          android:layout_width="40dip"
+          android:layout_height="40dip"
+          android:layout_gravity="center_vertical"
+          android:background="@drawable/search"
+          android:padding="5dp" />
+
+  </LinearLayout>
+
+   <LinearLayout
+        android:id="@+id/searchContent1" 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical" >
+        <com.yunbo.frame.KeywordsView
+            android:id="@+id/word"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:padding="2dip" />
+    </LinearLayout>
+</LinearLayout>

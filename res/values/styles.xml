@@ -1,0 +1,69 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+	<style name="Widget" parent="android:Widget"></style>
+   <style name="mProgressBarloading" parent="@style/Widget">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/progress_loading</item>
+        <item name="android:indeterminateDrawable">@drawable/progress_indeterminate_loading</item>
+        <item name="android:minHeight">5dip</item>
+        <item name="android:maxHeight">5dip</item>
+    </style>
+    <style name="mProgressBarloading2" parent="@style/Widget">
+        <item name="android:indeterminateOnly">true</item>
+        <item name="android:indeterminateDrawable">@drawable/loading2</item>
+        <item name="android:minHeight">5dip</item>
+        <item name="android:maxHeight">5dip</item>
+    </style>
+    <style name="mProgressBarCircular" parent="@style/Widget">
+        <item name="android:indeterminateOnly">true</item>
+        <item name="android:indeterminateDrawable">@drawable/progress_circular</item>
+        <item name="android:minHeight">5dip</item>
+        <item name="android:maxHeight">5dip</item>
+    </style>
+    <style name="mExpandableListView" parent="@style/Widget">
+        <item name="android:groupIndicator">@drawable/expander_group</item>
+        <item name="android:indicatorLeft">10dip</item>
+        <item name="android:indicatorRight">?android:attr/expandableListPreferredItemIndicatorRight</item>
+        <item name="android:childDivider">@drawable/list_divider</item>
+        
+    </style>
+
+    <style name="mProgressBarHorizontal" parent="@style/Widget">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/progress_horizontal</item>
+        <item name="android:indeterminateDrawable">@drawable/progress_indeterminate_horizontal</item>
+        <item name="android:minHeight">5dip</item>
+        <item name="android:maxHeight">5dip</item>
+    </style>
+    <style name="MediaController_SeekBar" parent="android:Widget.SeekBar">
+<item name="android:progressDrawable">@drawable/scrubber_progress_horizontal_holo_dark</item>
+<item name="android:indeterminateDrawable">@drawable/scrubber_progress_horizontal_holo_dark</item>
+<item name="android:minHeight">13dip</item>
+<item name="android:maxHeight">13dip</item>
+<item name="android:thumb">@drawable/scrubber_control_selector_holo</item>
+<item name="android:thumbOffset">16dip</item>
+<item name="android:paddingLeft">16dip</item>
+<item name="android:paddingRight">16dip</item>
+</style>
+<style name="MediaController_Text">
+<item name="android:textColor">#ffffffff</item>
+<item name="android:textSize">14sp</item>
+<item name="android:textStyle">bold</item>
+</style>
+</resources>

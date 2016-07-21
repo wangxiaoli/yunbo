@@ -1,0 +1,157 @@
+   <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+       
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+<LinearLayout 
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+ <LinearLayout 
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:background="@drawable/blue_bg"
+      android:orientation="vertical" >
+
+     <TextView
+         android:id="@+id/textView1"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_margin="10dp"
+         android:text="TextView"
+         android:textColor="@color/ghostwhite"
+         android:textSize="12sp" />
+
+     <RelativeLayout
+         android:id="@+id/infro"
+         android:layout_width="match_parent"
+         android:layout_height="180dp"
+         android:visibility="gone" >
+
+         <ProgressBar
+             android:id="@+id/progressBar2"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_centerVertical="true"
+             android:layout_marginLeft="15dp" />
+
+         <ImageView
+             android:id="@+id/imageView1"
+             android:layout_width="90dp"
+             android:layout_height="120dp"
+             android:layout_centerVertical="true"
+             android:layout_marginLeft="5dp" />
+         <TextView
+        android:id="@+id/actor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_toRightOf="@+id/imageView1" 
+        android:paddingLeft="5dip"
+        android:paddingTop="3dip"
+        android:textColor="@color/white"
+         android:text="actor"
+               android:singleLine="true" 
+        android:textSize="12sp" />  
+        <TextView
+        android:id="@+id/director"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_toRightOf="@+id/imageView1" 
+        android:layout_below="@+id/actor"
+        android:paddingLeft="5dip"
+        android:paddingTop="1dip"
+        android:textColor="@color/white"
+         android:text="director"
+               android:singleLine="true" 
+        android:textSize="12sp" />
+        <TextView
+        android:id="@+id/type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_toRightOf="@+id/imageView1" 
+        android:layout_below="@+id/director"
+        android:paddingLeft="5dip"
+        android:paddingTop="1dip"
+        android:textColor="@color/white"
+         android:text="type"
+        android:textSize="12sp" />
+  <ScrollView 
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+             android:layout_below="@+id/type"
+             android:layout_gravity="center_vertical"
+             android:layout_toRightOf="@+id/imageView1" 
+             android:background="@color/darkturquoise"
+             android:paddingLeft="5dip"
+             android:paddingTop="2dip" >
+         <TextView
+             android:id="@+id/textinfro"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:scrollbars="vertical"
+             android:singleLine="false"
+             android:textColor="@color/white"
+             android:textSize="14sp" />
+
+        </ScrollView>
+     </RelativeLayout>
+
+</LinearLayout>
+
+ <LinearLayout 
+     android:id="@+id/loadingpro"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:gravity="center_horizontal" >
+
+     <ProgressBar
+         android:id="@+id/progressBar1"
+         style="@style/mProgressBarCircular"
+         
+        android:layout_width="24dip"
+        android:layout_height="24dip" 
+           />
+
+     <TextView
+         android:id="@+id/textView2"
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:layout_gravity="center_vertical"
+         android:text="正在加载播放连接..." />
+
+ </LinearLayout>
+ 
+    <ListView
+        android:id="@+id/mListView"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:cacheColorHint="#00000000"
+        android:divider="@drawable/list_divider"
+        android:dividerHeight="1dip" />
+
+ 
+</LinearLayout>
+
+<TextView
+    android:id="@+id/textpage"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentRight="true"
+    android:layout_marginBottom="20dp"
+    android:layout_marginRight="20dp"
+    android:text="↓ 0/0" />
+
+<Button
+    android:id="@+id/sreachBtn"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" 
+    android:layout_alignParentRight="true"
+    android:layout_alignParentTop="true" 
+    android:text="高级搜索" />
+
+     </RelativeLayout>
+     

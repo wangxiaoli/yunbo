@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.yunbo.myyunbo"
+    android:versionCode="2016071901"
+    android:versionName="3.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> 
+
+    <application
+        android:allowBackup="false"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+       <!---->   <activity
+            android:name="io.vov.vitamio.activity.InitActivity"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
+            android:launchMode="singleTop"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.yunbo.myyunbo.LanunyActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.SearchActivity"
+            android:label="@string/title_activity_search" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.VideoViewBuffer"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.PlayActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.NewMovieActivity"
+            android:label="@string/title_activity_new_movie" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.HomeActivity"
+            android:label="@string/title_activity_home" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.ZhainandaoMainActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.ZhainandaoDetailActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.Ed2kSSActivity"
+            android:label="@string/title_activity_ed2k_ss" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.PlayUrlActivity"
+            android:label="@string/title_activity_play_url" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.SelectPlayerActivity"
+            android:label="@string/title_activity_select_player" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.FilmActivity"
+            android:label="@string/title_activity_film" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.HistoryActivity"
+            android:label="@string/title_activity_history" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.NvYouActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.NvyouDetailActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.TvLiveActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.DownListActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.XiaoDianYingActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.Yy97Activity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.TwoAvActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.BadadyActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.DianYingShenQiActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.LeDsjActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.MeiNvActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.WebActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.TaoTuActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.Sex8Activity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.DianYingShenMainQiActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.Mp4BaActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.CZhiActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.LongFeng4Activity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.CiLiActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.FilmMainActivity"
+            android:label="@string/app_name" >
+        </activity>
+    </application>
+
+</manifest>
