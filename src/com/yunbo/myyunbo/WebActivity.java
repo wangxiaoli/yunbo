@@ -347,16 +347,15 @@ public class WebActivity extends AbActivity {
 					// jxhand="http://v.1gnk.com/ckflv/api.php?url=";
 					// jxhand="http://mp4tv.gotoip11.com/ckflv/api.php?url=";
 					// jxiqiyi( url );
-
+					jxhand="http://www.mtkan.cc/mgtv.php?url=";
 					if (url.startsWith("http://www.mgtv.com/v/")) {
-						// jiexiurl( url );
-						url = "http://www.ivlook.com/ivlook-api/mgtv.php?url="
-								+ url;
+						  jxmgtv(url );
+						//url = "http://www.ivlook.com/ivlook-api/mgtv.php?url="+ url;
 					} else {
 						AbToastUtil.showToast(WebActivity.this,
 								"芒果专用解析，请选择其他的。");
-					return true;
 					}
+					return true;
 				}
 				if (tryqiyi == 6) {
 					// http://www.yichongwu.com/cq/v/2638.php?v=n0020kiklv0
@@ -600,6 +599,68 @@ public class WebActivity extends AbActivity {
 							}
 						}
 					}
+					
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				return null;
+			}
+		});
+
+		mAbTask.execute(item);
+	}
+
+	private void jxmgtv(final String qiyiurl) {
+		// TODO Auto-generated method stub
+		AbDialogUtil.showProgressDialog(this, R.drawable.progress_circular,
+				"正在解析,接口" + (tryqiyi + 1));
+		AbTask mAbTask = new AbTask();
+		final AbTaskItem item = new AbTaskItem();
+		item.setListener(new AbTaskObjectListener() {
+
+			@Override
+			public void update(Object obj) {
+				// TODO Auto-generated method stub
+				AbDialogUtil.removeDialog(WebActivity.this);
+				if (obj == null) {
+					AbToastUtil.showToast(WebActivity.this, "解析失败。请多试试。"); 
+				} else {
+					DyUtil.play(WebActivity.this, obj.toString(), webtitle
+							+ "_" + innerText, false);
+				}
+			}
+
+			@Override
+			public Object getObject() {
+				// TODO Auto-generated method stub
+				try {
+
+					Document doc = Jsoup.connect(jxhand + qiyiurl)
+							.userAgent(DyUtil.userAgent1).timeout(20000)
+							.header("Accept-Language", "zh-CN").get();
+					String html = doc.html();
+					Pattern pat = Pattern.compile("source:\\s*'(.+)'");
+
+					Matcher mat = pat.matcher(html);
+					if (mat.find()) {
+						String ts = mat.group(1);
+						if (!TextUtils.isEmpty(ts)) {
+
+							ts = URLDecoder.decode(ts, "utf-8");
+							if (ts.startsWith("http")) {
+								return ts;
+							}
+							if (ts.startsWith("./")) {
+
+								String hand = jxhand.replace("http://", "")
+										.split("\\?")[0];
+								hand = hand.substring(0, hand.indexOf("/"));
+
+								return "http://" + hand + ts.substring(1);
+							}
+						}
+					} 
 					
 
 				} catch (Exception e) {
@@ -1051,8 +1112,12 @@ public class WebActivity extends AbActivity {
 					} else if (url.startsWith("http://www.mgtv.com/v/")
 					// ||url.startsWith("http://v.qq.com/")
 					) {
-						String playurl = "http://www.ivlook.com/ivlook-api/mgtv.php?url="
-								+ url;
+						String playurl = "http://www.xgysxx.com/api.php?url="+ url+ "&ctype=phone";
+						int start=url.lastIndexOf("/")+1;
+						int end=url.lastIndexOf(".");
+						if (end>start) {
+							playurl="http://api.pronvod.com/dy/mg.php?v="+url.substring(start, end);
+						}
 						DyUtil.play(WebActivity.this, playurl, webtitle + "_"
 								+ innerText, false);
 					} else {
@@ -1077,7 +1142,7 @@ public class WebActivity extends AbActivity {
 					Document doc = Jsoup
 							.connect(
 									String.format(//
-											"http://m3u8.cc:8020/api?apikey=2395d95223232995&url=%s&mode=iphone",
+											"http://m3u8.cc:8020/api?apikey=55bfaf1b2821826c&url=%s&mode=iphone",
 											url)).userAgent(DyUtil.userAgent1)
 							.timeout(20000).header("Accept-Language", "zh-CN")
 							.get();
@@ -1177,7 +1242,7 @@ public class WebActivity extends AbActivity {
 		try {
 
 			 
-			URL	urlx = new URL(String.format("http://m3u8.cc：8020/api?apikey=2395d95223232995&url=%s&mode=iphone",urls))	;
+			URL	urlx = new URL(String.format("http://m3u8.cc：8020/api?apikey=55bfaf1b2821826c&url=%s&mode=iphone",urls))	;
 			HttpURLConnection connection = (HttpURLConnection) urlx
 					.openConnection();
 

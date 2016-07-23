@@ -35,7 +35,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:visibility="visible" >
+                android:visibility="invisible" >
 
                 <ImageView
                     android:id="@+id/imageView4"
@@ -54,7 +54,7 @@
     android:ellipsize="marquee"
     android:marqueeRepeatLimit="marquee_forever"
     android:singleLine="true"
-    android:text="最新下载地址发布页http://weibo.com/u/1836705834"
+    android:text="最新下载地址发布页http://fuliba.net/"
     android:textColor="@color/black"
     android:textColorHint="@color/forestgreen"
     android:textColorLink="@color/forestgreen"

@@ -114,8 +114,8 @@ public class CiLiActivity extends AbActivity {
 		final GridView gridView = (GridView) this
 				.findViewById(R.id.mGridView);
 		gridView.setVisibility(View.GONE);
-		final int qqxf=4;
-		final int s115=3;
+		final int qqxf=2;
+		final int s115=2;
 		final int sum=qqxf+s115;
 		final BaseAdapter myGridViewAdapter=new BaseAdapter() {
 			
@@ -199,23 +199,23 @@ public class CiLiActivity extends AbActivity {
 					}
 				}
 				
-				if (DyUtil.jiexiIndex==0) {
-					
-					DyUtil.jx444urlhand="http://www.chenfuwl.com/chenfu2.php?";
-					DyUtil.toGetPlayUrl2_444(allList.get(position), info_hash, packageContext,textView1,pb,true); 
-				}
-				if (DyUtil.jiexiIndex==1) { 
-					DyUtil.jx444urlhand="http://120.24.170.195:88/842606559.php?";
-					DyUtil.toGetPlayUrl2_444(allList.get(position), info_hash, packageContext,textView1,pb);
-					
-				}
-				if (DyUtil.jiexiIndex==2) {//http://www.srmc75.com/Android1.5
+//				if (DyUtil.jiexiIndex==0) {
+//					
+//					DyUtil.jx444urlhand="http://www.chenfuwl.com/chenfu2.php?";
+//					DyUtil.toGetPlayUrl2_444(allList.get(position), info_hash, packageContext,textView1,pb,true); 
+//				}
+//				if (DyUtil.jiexiIndex==1) { 
+//					DyUtil.jx444urlhand="http://120.24.170.195:88/842606559.php?";
+//					DyUtil.toGetPlayUrl2_444(allList.get(position), info_hash, packageContext,textView1,pb);
+//					
+//				}
+				if (DyUtil.jiexiIndex==0) {//http://www.srmc75.com/Android1.5
 					DyUtil.jx5urlhand= "http://www.srmc75.com/Android1.5/screen.php?m="+
 							AbMd5.MD5(info_hash.toUpperCase()+"http://www.srmc75.com/Android1.5").toLowerCase()+"&";
 					DyUtil.toGetPlayUrl2_5_1(allList.get(position), info_hash.toUpperCase(), packageContext,textView1,pb);
 					//DyUtil.toGetPlayUrl2_3(allList.get(position), info_hash, packageContext,textView1,pb);
 				}
-				if (DyUtil.jiexiIndex==3) {
+				if (DyUtil.jiexiIndex==1) {
 					DyUtil.jx5urlhand= "http://aa7761610510.d203.cnaaa7.com/ax.php?";
 					DyUtil.toGetPlayUrl2_555(allList.get(position), info_hash.toLowerCase(), packageContext,textView1,pb);
 				}
@@ -236,19 +236,19 @@ public class CiLiActivity extends AbActivity {
 //					DyUtil.toGetPlayUrl2_18(allList.get(position), info_hash.toUpperCase(), packageContext,textView1,pb);
 //				}
 				if((s115-(sum-DyUtil.jiexiIndex)+1)==1){
-					Wu115Util.jxhand="http://m3u8.cc:8020/api?apikey=2395d95223232995&url=magnet:?xt=urn:btih:%s";
+					Wu115Util.jxhand="http://m3u8.cc:8020/api?apikey=55bfaf1b2821826c&url=magnet:?xt=urn:btih:%s";
 					Wu115Util.rr="http://m3u8.cc/";
 					Wu115Util.jiexi1(info_hash.toLowerCase(),allList.get(position).getName(),position, packageContext);
 				}
 				if((s115-(sum-DyUtil.jiexiIndex)+1)==2){
-					Wu115Util.jxhand="https://and110app.applinzi.com/playm3u8/?url=magnet:?xt=urn:btih:%s";
-					Wu115Util.rr="http://www.and110.com/";
-					Wu115Util.jiexi(info_hash.toLowerCase(),allList.get(position).getName(), packageContext);
-				}
-				if((s115-(sum-DyUtil.jiexiIndex)+1)==3){
 					Wu115Util.jxhand="http://feiyuys.com/playm3u8/?type=magnet&vid=%s";
 					Wu115Util.rr="http://www.feiyuys.com/";
 					Wu115Util.jiexi(info_hash.toUpperCase(),allList.get(position).getName(), packageContext);
+				}
+				if((s115-(sum-DyUtil.jiexiIndex)+1)==3){
+					Wu115Util.jxhand="https://and110app.applinzi.com/playm3u8/?url=magnet:?xt=urn:btih:%s";
+					Wu115Util.rr="http://www.and110.com/";
+					Wu115Util.jiexi(info_hash.toLowerCase(),allList.get(position).getName(), packageContext);
 				}
 				 
 			} 

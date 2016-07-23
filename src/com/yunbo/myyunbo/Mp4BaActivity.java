@@ -156,7 +156,7 @@ public class Mp4BaActivity extends AbActivity {
 				DyUtil.showVideo = allList.get(position);
 
 				if (!isad&&"N".equals(DyUtil.showVideo.getIntro())) {
-					DyUtil.jiexiIndex=4;
+					//DyUtil.jiexiIndex=4;
 					DyUtil.toGetPlayUrl(DyUtil.showVideo.getVid(),Mp4BaActivity.this);
 					return;
 				}

@@ -285,7 +285,7 @@ public class DianYingShenMainQiActivity extends AbActivity {
 	 
 	
     //public static int page=30;
-	private String homeurl = "http://aqw894774.gotoip2.com/";
+	private String homeurl = "http://sqgfxz.gotoip1.com/";
 	public   void read( ){ 
 		
 		AbDialogUtil.showProgressDialog(this, R.drawable.progress_circular,

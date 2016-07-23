@@ -1128,7 +1128,7 @@ public class DyUtil {
 		} 
 		return all;
 	}
-	public static int jiexiIndex=3;
+	public static int jiexiIndex=1;
 	public static void toGetPlayUrl(  String urlT,
 			final AbActivity packageContext) {
 		// TODO Auto-generated method stub
@@ -2553,11 +2553,11 @@ pb.setVisibility(View.VISIBLE);
 									
 									//data.setName(strs[0]);
 								int start=html.indexOf("http://");
-								int end=html.indexOf("/m.mkv");
+								int end=html.indexOf("</",start);
 								String srcString=html.substring(start, end);
 								data.setUrl(srcString); 
 								start=html.indexOf("e:");
-								 end=html.indexOf("|");
+								 end=html.indexOf("|",start);
 								 srcString=html.substring(start+2, end);
 								data.setCookie(srcString); 
 									data.setName("Success");
@@ -3972,6 +3972,23 @@ pb.setVisibility(View.VISIBLE);
 		HistoryUtil.isRecord = false;
 		 isLive = false;
 		 isCanDownload = false;
+		 fileList = new ArrayList<String>();
+		 newPlayObj = new XFplayurl();
+		 newPlayObj.setCookie("");
+		DyUtil.playUrl = url;
+		DyUtil.newPlayObj.setUrl(url);
+		DyUtil.newPlayObj.setName(name);
+		DyUtil.isCanCopy=isCanCopy;
+		Intent intent = new Intent(abActivity, VideoViewBuffer.class);
+		abActivity.startActivity(intent);
+		
+	}
+	public static void play(final AbActivity abActivity ,
+			final String url,final String name,boolean isCanCopy,boolean isCanDownload) {
+
+		HistoryUtil.isRecord = false;
+		 isLive = false;
+		 DyUtil. isCanDownload = isCanDownload;
 		 fileList = new ArrayList<String>();
 		 newPlayObj = new XFplayurl();
 		 newPlayObj.setCookie("");

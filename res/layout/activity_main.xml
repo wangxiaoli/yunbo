@@ -83,7 +83,8 @@
                 android:layout_height="wrap_content"
                 android:text="云播，这里有你想看的片。"
                 android:textColor="@color/dodgerblue"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:visibility="invisible" />
 
         </LinearLayout>
 

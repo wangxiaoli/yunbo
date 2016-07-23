@@ -810,6 +810,11 @@ private void setbility(boolean b) {
 		intent.setClass(PlayUrlActivity.this, FilmActivity.class);
 		startActivity(intent);
 	}
+	private void doCaoPoo() {
+		Intent intent = new Intent();
+		intent.setClass(PlayUrlActivity.this, CaoPooActivity.class);
+		startActivity(intent);
+	}
 
 	private void doxdy() {
 		Intent intent = new Intent();
@@ -982,6 +987,35 @@ private void setbility(boolean b) {
 		});
 		getgifcontext();
 		setgifsrc(mWebView, textView);
+		AbDialogUtil.removeDialog(this);
+		AbDialogUtil.showAlertDialog(view);
+	}
+	
+	private void getfuli() {
+		// TODO Auto-generated method stub
+
+		View view = mInflater.inflate(R.layout.dialog_web_button , null);
+		
+		Button ss = (Button) view.findViewById(R.id.left_btn);
+		Button next = (Button) view.findViewById(R.id.right_btn);
+		final TextView textView = (TextView) view
+				.findViewById(R.id.title_choices);
+
+		final WebView mWebView = (WebView) view.findViewById(R.id.gitWebView);
+		 
+		ss.setVisibility(View.GONE);
+		next.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// TODO Auto-generated method stub 
+				Intent intent = new Intent(); 
+				intent.setClass(PlayUrlActivity.this, FulibaActivity.class); 
+				startActivity(intent);
+			}
+		}); 
+		next.setText("进入");
+		mWebView.loadUrl("http://fuliba.net/");
+		textView.setText("更多福利请进入福利吧");
 		AbDialogUtil.removeDialog(this);
 		AbDialogUtil.showAlertDialog(view);
 	}
@@ -1313,6 +1347,14 @@ private void setbility(boolean b) {
 				temp.setName("JAV");
 				data.add(temp);
 				temp=new Nvyou();
+				temp.setImg("http://www.caopoo.net/logo.png");
+				temp.setName("CaoPoo/草坡");
+				data.add(temp);
+				temp=new Nvyou();
+				temp.setImg("http://inews.gtimg.com/newsapp_bt/0/62492400/640");
+				temp.setName("福利吧");
+				data.add(temp);
+				temp=new Nvyou();
 				temp.setImg("http://www.iconpng.com/png/iconic_green/read_more.png");
 				temp.setName("查看更多");
 				data.add(temp);
@@ -1499,6 +1541,14 @@ private void setbility(boolean b) {
 					}i++;
 					if (position==i) {  
 						dojav();
+						return;
+					}i++;
+					if (position==i) {  
+						doCaoPoo();
+						return;
+					}i++;
+					if (position==i) {  
+						getfuli();
 						return;
 					}i++;
 					if (position==i) { 

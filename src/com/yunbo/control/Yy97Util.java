@@ -13,14 +13,20 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLSession;
 
 import org.apache.http.client.utils.URIUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+ 
 
 import android.R.integer;
 import android.content.Intent;
@@ -983,9 +989,29 @@ public class Yy97Util {
 //						hand=hand.substring(0, hand.indexOf("/"));
 
 						//obj.setUrl("http://"+hand +ts);
-						obj.setUrl("http://www.5mrk.com/api/le.php?url="+id);
-						obj.setUrl("http://www.feiyuys.com/youku_vip/letv.php?url=www.le.com/ptv/vplay/"+id+".html");
-						obj.setUrl("http://4480.s4yy.com/levip.php?v="+id);
+						//obj.setUrl("http://www.5mrk.com/api/le.php?url="+id);
+						//obj.setUrl("http://www.feiyuys.com/youku_vip/letv.php?url=www.le.com/ptv/vplay/"+id+".html");
+						///obj.setUrl("http://4480.s4yy.com/levip.php?v="+id);
+					String urlString="http://4480.s4yy.com/levip.php?v="+id;
+						if (TextUtils.isEmpty(CNZZDATA)) {
+							initCNZZDATA("4480.s4yy.com");
+						}
+					URL url;
+					try { 
+						url = new URL( urlString);
+						HttpURLConnection connection = (HttpURLConnection) url
+								.openConnection(); 
+						connection.setConnectTimeout(5000);
+						connection.setFollowRedirects(true);
+						connection.setRequestProperty("Cookie",CNZZDATA+";");
+						//connection.connect();
+						connection.getResponseCode();
+						urlString= connection.getURL().toString() ;
+						connection.disconnect();
+					} catch (Exception e) {
+						e.printStackTrace(); 
+					}
+						 obj.setUrl(urlString);
 						return obj;
 					//} 
 				} catch (Exception e) {
@@ -995,6 +1021,92 @@ public class Yy97Util {
 				
 				 return obj;
 			}
+			//http://ykyun.s4yy.com/ykyun.php?v=CNDE2MjIwOA==&type=mp4
+			private String CNZZDATA="";
+			private void initCNZZDATA(String domain) {
+
+			try {
+
+				HostnameVerifier hv = new HostnameVerifier() {  
+			        public boolean verify(String urlHostName, SSLSession session) {  
+			            System.out.println("Warning: URL Host: " + urlHostName + " vs. "+ session.getPeerHost());  
+			            return true;  
+			        }  
+			    };  
+				trustAllHttpsCertificates();  
+				HttpsURLConnection.setDefaultHostnameVerifier(hv); 
+				URL url; 
+				url = new URL("https://s4yy.com/statistics.php");
+				HttpURLConnection connection = (HttpURLConnection) url 
+						.openConnection();
+
+				connection.setRequestMethod("GET");  
+
+				connection.setRequestProperty("Accept", "*/*"); 
+				  connection.setRequestProperty("Accept-Language", "zh-CN");
+				  connection.setRequestProperty("Accept-Encoding", "gzip,deflate");
+				  connection.setRequestProperty("Referer", "https://s4yy.com/video/4480.html");
+				  connection.setRequestProperty("DNT", "1"); 
+				connection.setRequestProperty("User-Agent", "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0; BOIE9;ZHCN)"); 
+				connection.setRequestProperty("Connection", "Keep-Alive");  
+				connection.setReadTimeout(30000);
+				connection.setFollowRedirects(true);
+				connection.getResponseCode(); 
+				String cookieskey = "Set-Cookie";
+				Map<String, List<String>> maps = connection.getHeaderFields();
+				List<String> coolist = maps.get(cookieskey);
+
+				for (String string : coolist) {
+					String cc = string.split(";")[0];
+					if (string.contains(domain)) {
+						CNZZDATA=cc;
+						break;
+					}} 
+				} catch (Exception e) {
+				e.printStackTrace();  
+				}
+			}
+
+		      
+		    private void trustAllHttpsCertificates() throws Exception {  
+		        javax.net.ssl.TrustManager[] trustAllCerts = new javax.net.ssl.TrustManager[1];  
+		        javax.net.ssl.TrustManager tm = new miTM();  
+		        trustAllCerts[0] = tm;  
+		        javax.net.ssl.SSLContext sc = javax.net.ssl.SSLContext  
+		                .getInstance("SSL");  
+		        sc.init(null, trustAllCerts, null);  
+		        javax.net.ssl.HttpsURLConnection.setDefaultSSLSocketFactory(sc  
+		                .getSocketFactory());  
+		    }  
+		  
+   class miTM implements javax.net.ssl.TrustManager,  
+		            javax.net.ssl.X509TrustManager {  
+		        public java.security.cert.X509Certificate[] getAcceptedIssuers() {  
+		            return null;  
+		        }  
+		  
+		        public boolean isServerTrusted(  
+		                java.security.cert.X509Certificate[] certs) {  
+		            return true;  
+		        }  
+		  
+		        public boolean isClientTrusted(  
+		                java.security.cert.X509Certificate[] certs) {  
+		            return true;  
+		        }  
+		  
+		        public void checkServerTrusted(  
+		                java.security.cert.X509Certificate[] certs, String authType)  
+		                throws java.security.cert.CertificateException {  
+		            return;  
+		        }  
+		  
+		        public void checkClientTrusted(  
+		                java.security.cert.X509Certificate[] certs, String authType)  
+		                throws java.security.cert.CertificateException {  
+		            return;  
+		        }  
+		    }  
 			private Urldata ykvip(String id) {
 				// TODO Auto-generated method stub
  

@@ -359,7 +359,7 @@ private String nextpageurl="";
 				// TODO Auto-generated method stub
 				isnext=false;
 				try {
-					Document doc = Jsoup.connect(ssurl).userAgent(useragent1)
+					Document doc = Jsoup.connect(ssurl).userAgent(useragent1).header("Accept-Language", "zh-CN,zh;q=0.8")
 							.timeout(10000).get();
 					Pattern pat = Pattern.compile("[a-zA-Z0-9]{40}");
 					Elements as = doc.select("a[href]");

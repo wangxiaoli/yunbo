@@ -137,7 +137,7 @@ public class NvYouActivity extends AbActivity {
 							Element a = img.parent();
 							if (a.nodeName().equals("a")) {
 								Nvyou nvyou = new Nvyou();
-								nvyou.setUrl(a.attr("abs:href").replace("http://www.nanrenvip.com/", ""));
+								nvyou.setUrl(a.attr("abs:href").replace("http://www.nh87.cn/", ""));
 								nvyou.setImg(img.attr("abs:src")); 
 								if (!nvyou.getImg().contains("upload")) {
 									nvyou.setImg(""); 

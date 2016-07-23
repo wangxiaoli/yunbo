@@ -126,7 +126,7 @@ public class DianYingShenQiActivity extends AbActivity {
 
 				if (url.startsWith("magnet")) {
 					url=DyUtil.changeED2K(url); 
-					DyUtil.jiexiIndex=4;
+					//DyUtil.jiexiIndex=4;
 					DyUtil.toGetPlayUrl(url, DianYingShenQiActivity.this);
 					return;
 				}
@@ -200,7 +200,7 @@ public class DianYingShenQiActivity extends AbActivity {
 	}
 	
     public static int page=30;
-	private String homeurl = "http://aqw894774.gotoip2.com/?s=vod-show-id-%s.html";
+	private String homeurl = "http://sqgfxz.gotoip1.com/?s=vod-show-id-%s.html";
 	public   void read( ){ 
 		
 		AbDialogUtil.showProgressDialog(this, R.drawable.progress_circular,
@@ -246,12 +246,12 @@ try {
 				// TODO Auto-generated method stub 
 				AbDialogUtil.removeDialog(DianYingShenQiActivity.this);
 				if (paramList == null || paramList.size() == 0) { 
-					if(homeurl.contains("gotoip2")){
-						homeurl=homeurl.replace("aqw894774.gotoip2.com", "mp4tv.net");
-						allList=new ArrayList<Nvyou>();
-						read();
-						return;
-					}
+//					if(homeurl.contains("gotoip")){
+//						homeurl=homeurl.replace("sqgfxz.gotoip1.com", "mp4tv.net");
+//						allList=new ArrayList<Nvyou>();
+//						read();
+//						return;
+//					}
 						
 					AbToastUtil.showToast(DianYingShenQiActivity.this, "查询结果为空！多试试");
 					return;
