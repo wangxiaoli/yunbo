@@ -259,7 +259,7 @@ public class WebActivity extends AbActivity {
 				// tryqiyi++;
 				// tryqiyi=tryqiyi%4;
 				if (tryqiyi == 0) {
-
+					////proxy.dy208.com/iqy/492675900
 					if (url.startsWith("http://www.iqiyi.com/v_")) {
 						jxhand = "http://www.cloudparse.com/ckflv/?url=";
 						jxhand = "http://vip.4410yy.com/iqiyi.php?url=";
@@ -278,6 +278,7 @@ public class WebActivity extends AbActivity {
 					// jxhand="http://www.2341.tv/ckflv/api.php?url=";
 
 					// url="http://14.29.50.27:8022/demo.php?url="+url;
+					// http://proxy.dy208.com/sohu/index.php?vid=2784321
 					if (url.startsWith("http://tv.sohu.com/")
 							|| url.startsWith("http://film.sohu.com/album/")) { 
 					url = String.format(Yy97Util.httpjxurl, url);
@@ -330,6 +331,8 @@ public class WebActivity extends AbActivity {
 //									+ url.substring(url.lastIndexOf("/") + 1,
 //											url.lastIndexOf("."))
 //									+ "_1000_m3u8";
+
+							  //http://proxy.dy208.com/levip/25892509
 							
 							url="http://jiexi.tepian.com/le.php?url="+url;
 						} catch (Exception e) {
@@ -718,7 +721,7 @@ public class WebActivity extends AbActivity {
 						  if (!okurl.equals(urlString)) {
 						  return okurl; 
 						  }
-					}tryintqy=0;
+					}//tryintqy=0;
 					 //http://m3u8.cc/api?apikey=2395d95223232995&url=http://www.iqiyi.com/v_19rrl4tz10.html&mode=iphone
 					Document	doc = Jsoup.connect( qiyiurl)
 								.userAgent(DyUtil.userAgent1).timeout(20000)
@@ -732,7 +735,14 @@ public class WebActivity extends AbActivity {
 								//return "http://api.addzsw.com:8080/vipiqiyimp4?tvid="+str;
 								
 								//String urlString="http://proxy.dy208.com/iqy/iqy4138.php?v="+str;
+								//String urlString="http://proxy.dy208.com/iqy/"+str;
 								String urlString="http://www.bage01.com/js/playdy/cc/qy.php?id="+str;
+								tryintqy++;
+								if (tryintqy==2) {
+									urlString="http://proxy.dy208.com/iqy/"+str;
+									tryintqy=0;
+								}
+								
 								  String okurl=getRedirects(urlString);
 								  if (!okurl.equals(urlString)) {
 								  return okurl;

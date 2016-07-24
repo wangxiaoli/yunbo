@@ -274,6 +274,25 @@ public class Yy97Util {
 				String[] strs=url.split("\\$");
 				id=strs[1];
 
+//				if (id.startsWith("http") ) { 
+//					 
+//					if (id.startsWith("http://www.le.com/ptv/vplay/")||id.startsWith("http://www.letv.com/ptv/vplay/")) {
+//						
+//
+//						Pattern pat = Pattern.compile("[0-9]+");
+//
+//						Matcher mat = pat.matcher(url);
+//						if (mat.find()) {
+//							 id = mat.group(0); 
+//							 return LEvip(id);
+//						}
+//					}
+//					
+//					obj.setUrl(getRedirects(String.format(httpjxurl, url)));
+//					
+//					return obj;
+//					//return ykvip(url);
+//				}
 
 				if (strs[2].equals("pp")) {
 					// return qiyijx(id);
@@ -315,6 +334,21 @@ public class Yy97Util {
 					// return allyun3(id,".acfun");
 				} 
 				if ("sohu".equals( strs[2])) {
+//					try {
+//						Long.parseLong(id);
+//						obj.setUrl("http://proxy.dy208.com/sohu/index.php?vid="+id);
+//						return obj;
+//					} catch (Exception e) {
+//						// TODO: handle exception
+//					}
+//					Pattern pat = Pattern.compile("n([0-9]+)\\.s");
+//
+//					Matcher mat = pat.matcher(id);
+//					if (mat.find()) {
+//						 id = mat.group(1); 
+//							obj.setUrl("http://proxy.dy208.com/sohu/index.php?vid="+id);
+//							return obj;
+//					}
 					return allyun3(id,"");
 				} 
 				if ("youku".equals( strs[2]) ) {

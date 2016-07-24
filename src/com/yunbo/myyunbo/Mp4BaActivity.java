@@ -271,6 +271,20 @@ public class Mp4BaActivity extends AbActivity {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				// TODO Auto-generated method stub
+				webview.loadUrl(url);
+				if (iswebjump) {
+					iswebjump=false;
+					
+					
+					jsjumpurl=url;
+					new Handler().postDelayed(new Runnable() {
+
+						@Override
+						public void run() {
+							 moreLoading();
+						}
+					}, 2000); 
+				}
 				return true;
 			}});   
 			// 设置setWebChromeClient对象
@@ -361,18 +375,25 @@ public class Mp4BaActivity extends AbActivity {
 			
 			
 			
-		new Handler().postDelayed(new Runnable() {
-
-			@Override
-			public void run() {
-				 moreLoading();
-			}
-		}, 100); 
+//		new Handler().postDelayed(new Runnable() {
+//
+//			@Override
+//			public void run() {
+//				 moreLoading();
+//			}
+//		}, 100); 
 
         webview.getSettings().setLoadWithOverviewMode(true);
         webview.getSettings().setUseWideViewPort(true);
+        webview.getSettings().setJavaScriptEnabled(true);
+        webview.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        webview.loadUrl(jsjumpurl);
+        //show.setVisibility(View.VISIBLE);
+		AbDialogUtil.showProgressDialog(this, R.drawable.progress_circular,
+				"正在获取电影列表...");
 	}
-
+    private boolean iswebjump=true;
+    private String jsjumpurl="http://www.meiyouad.com/torrent";
 	@Override 
     //设置回退  
     //覆盖Activity类的onKeyDown(int keyCoder,KeyEvent event)方法  
@@ -474,7 +495,13 @@ finish();
 				try {
 
 					Document doc = Jsoup.connect(url)
-							.userAgent(DyUtil.userAgent2).timeout(10000).get();
+							.userAgent(DyUtil.userAgent5).timeout(10000)
+							.header("Accept-Language", "zh-CN")
+						.header("DNS", "1")
+						.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+						.header("Accept-Encoding", "gzip, deflate")
+						.header("Connection", "keep-alive")
+							.get();
 
 					Elements trs = doc.select("tbody > tr");
 					for (Element tr : trs) {
@@ -563,7 +590,13 @@ finish();
 				try {
 
 					Document doc = Jsoup.connect(url)
-							.userAgent(DyUtil.userAgent1).timeout(10000).get();
+
+							.userAgent(DyUtil.userAgent5).timeout(10000)
+							.header("Accept-Language", "zh-CN")
+						.header("DNS", "1")
+						.header("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8")
+						.header("Accept-Encoding", "gzip, deflate")
+						.header("Connection", "keep-alive").referrer(jsjumpurl).get();
 
 					Elements trs = doc.select("tbody > tr");
 					for (Element tr : trs) {
