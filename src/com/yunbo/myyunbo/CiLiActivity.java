@@ -114,7 +114,7 @@ public class CiLiActivity extends AbActivity {
 		final GridView gridView = (GridView) this
 				.findViewById(R.id.mGridView);
 		gridView.setVisibility(View.GONE);
-		final int qqxf=2;
+		final int qqxf=3;
 		final int s115=2;
 		final int sum=qqxf+s115;
 		final BaseAdapter myGridViewAdapter=new BaseAdapter() {
@@ -218,6 +218,12 @@ public class CiLiActivity extends AbActivity {
 				if (DyUtil.jiexiIndex==1) {
 					DyUtil.jx5urlhand= "http://aa7761610510.d203.cnaaa7.com/ax.php?";
 					DyUtil.toGetPlayUrl2_555(allList.get(position), info_hash.toLowerCase(), packageContext,textView1,pb);
+				}
+
+				if (DyUtil.jiexiIndex==2) { 
+
+					DyUtil.toGetPlayUrl2_4(allList.get(position), info_hash, packageContext,textView1,pb);
+					
 				}
 //				if (DyUtil.jiexiIndex==4) {
 //					DyUtil.jx5urlhand= "http://mt520.xyz:8080/CPServer/cloudplayer/geturlopen?";

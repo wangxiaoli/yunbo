@@ -21,6 +21,7 @@ import com.ab.image.AbImageLoader;
 import com.ab.task.AbTask;
 import com.ab.task.AbTaskItem;
 import com.ab.task.AbTaskListListener; 
+import com.ab.task.AbTaskObjectListener;
 import com.ab.util.AbCharacterParser; 
 import com.ab.util.AbDialogUtil;  
 import com.ab.util.AbStrUtil;
@@ -236,7 +237,57 @@ setpicsrc();
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub 
-				DyUtil.play(CaoPooActivity.this, nvyou.getUrl(), nvyou.getName()+".mp4",true,true);
+				final AbActivity packageContext=CaoPooActivity.this;
+				AbDialogUtil.showProgressDialog(packageContext,
+						R.drawable.progress_circular, "正在获取播放链接...");
+				AbTask mAbTask = new AbTask();
+				final AbTaskItem item = new AbTaskItem();
+				item.setListener(new AbTaskObjectListener() {
+
+					@Override
+					public void update(Object obj) {
+						// TODO Auto-generated method stub
+						AbDialogUtil.removeDialog(packageContext);
+						if (obj==null) {
+							AbToastUtil.showToast(packageContext, "没有播放链接");
+						}else {
+							DyUtil.play(CaoPooActivity.this, obj.toString(), nvyou.getName()+".mp4",true,true);
+						}
+						
+					}
+
+					@Override
+					public Object getObject() {
+						// TODO Auto-generated method stub 
+						URL url;
+						try {
+							url = new URL( nvyou.getUrl());
+							HttpURLConnection connection = (HttpURLConnection) url
+									.openConnection();
+							connection.setConnectTimeout(5000);
+							connection.setFollowRedirects(true);
+							connection.setRequestProperty("Connection", "keep-alive");
+							connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36");
+							connection.setRequestProperty("Accept", "*/*");
+							connection.setRequestProperty("Accept-Encoding", "identity;q=1, *;q=0");
+							connection.setRequestProperty("Referer", hostServer);
+							connection.setRequestProperty("Accept-Language", "zh-CN,zh;q=0.8");
+							connection.setRequestProperty("Cookie", cookie);
+							connection.setRequestProperty("Range", "bytes=0-");
+							// connection.connect();
+							connection.getResponseCode();
+							String urlString = connection.getURL().toString();
+							connection.disconnect();
+							return urlString;
+						} catch (Exception e) {
+							e.printStackTrace();
+						}  
+						return null;
+					}
+				});
+
+				mAbTask.execute(item);
+				
 			}
 
 		}); 
@@ -386,9 +437,17 @@ finish();
 					 for (Element element : imgs) {
 						 //http://ziyuan.caoboo.com/media/videos/mp4/zp/20446.mp4
 						 //http://ziyuan.caoboo.com/media/videos/tmb/61526/1.jpg
+						 //http://ziyuan.caoboo.com//media/videos/flv/74597.mp4
+						 //http://www.caopoo77.com/mobile_src_1.php?id=74597
 						 String title=element.attr("title");
 						 String src=element.attr("abs:src");
+						 
 						 String url=src.replace("tmb", "mp4/zp").replace("/1.jpg", ".mp4");
+						 String[]sss=src.split("\\/");
+						 int c=sss.length-2;
+						 if (c>0) {
+							url=hostServer+"mobile_src_1.php?id="+sss[c];
+						}
 //							System.out.println(title);
 //							System.out.println(src);
 //							System.out.println(url);

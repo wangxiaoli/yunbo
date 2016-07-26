@@ -412,11 +412,11 @@ new Handler().postDelayed(new Runnable(	) {
 					
 					@Override
 					public void run() {
-						// TODO Auto-generated method stub
+						// TODO Auto-generated method stub  PlayUrlActivity
 						Intent intent = new Intent();
 						Bundle bundle = new Bundle();
 						bundle.putBoolean("ismain", true); 
-						intent.setClass(MainActivity.this, PlayUrlActivity.class); 
+						intent.setClass(MainActivity.this, BtdyttActivity.class); 
 						intent.putExtras(bundle);
 						startActivity(intent);
 						finish();

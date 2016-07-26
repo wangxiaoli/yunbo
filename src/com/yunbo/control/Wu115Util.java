@@ -13,6 +13,8 @@ import org.json.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
+import android.text.TextUtils;
+
 import com.ab.activity.AbActivity;
 import com.ab.task.AbTask;
 import com.ab.task.AbTaskItem;
@@ -86,6 +88,9 @@ private static String get115url(String cilihash) {
 		} 
 		return null;
 }
+
+private static String wu115hash="";
+private static String wu115data="";
 public static void jiexi1(final String hash,final String name,final int index, final AbActivity packageContext) {
 
 	AbDialogUtil.showProgressDialog(packageContext,
@@ -99,6 +104,7 @@ public static void jiexi1(final String hash,final String name,final int index, f
 			// TODO Auto-generated method stub 
 				AbDialogUtil.removeDialog(packageContext);
 			 if (obj==null) {
+				 wu115data="";
 				AbToastUtil.showToast(packageContext, "没有播放链接");
 			}else {
 				String url=obj.toString();
@@ -112,31 +118,38 @@ public static void jiexi1(final String hash,final String name,final int index, f
 			try {
  
 				
-				URL	urlx = new URL(String.format(jxhand,hash))	;
-				HttpURLConnection connection = (HttpURLConnection) urlx
-						.openConnection();
-
-				connection.setRequestMethod("GET");  connection.setRequestProperty("Accept", "*/*"); 
-				connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36");
-						
-				connection.setRequestProperty("Connection", "Keep-Alive"); 
-				connection.setReadTimeout(30000);
-				connection.setFollowRedirects(true);
-				connection.connect(); 
 				String html =""; 
-				InputStream inStrm = connection.getInputStream();
+				String url="";
+				if (!wu115hash.equals(hash)||TextUtils.isEmpty(wu115data)) {
 
-				BufferedReader br = new BufferedReader(new InputStreamReader(
-						inStrm,"utf-8"));
+					URL	urlx = new URL(String.format(jxhand,hash))	;
+					HttpURLConnection connection = (HttpURLConnection) urlx
+							.openConnection();
 
-				String temp = "";
-				while ((temp = br.readLine()) != null) {
-					html += (temp + '\n');
+					connection.setRequestMethod("GET");  connection.setRequestProperty("Accept", "*/*"); 
+					connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36");
+							
+					connection.setRequestProperty("Connection", "Keep-Alive"); 
+					connection.setReadTimeout(30000);
+					connection.setFollowRedirects(true);
+					connection.connect(); 
+					InputStream inStrm = connection.getInputStream();
+
+					BufferedReader br = new BufferedReader(new InputStreamReader(
+							inStrm,"utf-8"));
+
+					String temp = "";
+					while ((temp = br.readLine()) != null) {
+						html += (temp + '\n');
+					}
+					br.close();
+					connection.disconnect(); 
+						url=html.replace("\\/", "/");
+						wu115data=url;
+				}else {
+					url=wu115data;
 				}
-				br.close();
-				connection.disconnect(); 
-					String url=html.replace("\\/", "/");
-					
+					wu115hash=hash;
 					System.out.println(html); try {
 						if (null != url) {
 							JSONObject newsObject = new JSONObject(url);
@@ -162,7 +175,7 @@ public static void jiexi1(final String hash,final String name,final int index, f
 				// TODO: handle exception
 				e.printStackTrace();
 			} 
-			return get115url(hash);
+			return null;//get115url(hash);
 		}
 	});
 

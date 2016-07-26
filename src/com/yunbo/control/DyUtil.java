@@ -1130,7 +1130,7 @@ public class DyUtil {
 		} 
 		return all;
 	}
-	public static int jiexiIndex=1;
+	public static int jiexiIndex=2;
 	public static void toGetPlayUrl(  String urlT,
 			final AbActivity packageContext) {
 		// TODO Auto-generated method stub
@@ -1930,7 +1930,7 @@ public static String jx6urlhand="http://842606559.vip.cantonshop.cn/xf.php?";
 		// TODO Auto-generated method stub 
 //		AbDialogUtil.showProgressDialog(packageContext,
 //				R.drawable.progress_circular, "正在提取种子信息...接口2");
-textView.setText("正在解析...接口4...提取种子信息");
+textView.setText("正在解析...接口"+(jiexiIndex+1)+ "...提取种子信息");
 pb.setVisibility(View.VISIBLE);
 		AbTask mAbTask = new AbTask();
 		final AbTaskItem item = new AbTaskItem();
@@ -1957,7 +1957,7 @@ pb.setVisibility(View.VISIBLE);
 							String cook=data.getData().get(0).getCookie().replace("FTN5K=", "");
 							if (!cook.equals("00000000")) {
 								msg = cook; 
-								textView.setText("接口4解析成功。");
+								textView.setText("接口"+(jiexiIndex+1)+ "解析成功。");
 								//tv.setText(msg);
 							    //AbToastUtil.showToast(packageContext, msg);
 								playwitchcook(packageContext,url, "【"+convertFileSize(sf.getFile_size())
@@ -1984,7 +1984,7 @@ pb.setVisibility(View.VISIBLE);
 										sf.getIndex()+
 										"\",\"filesize\":\"1\",\"filename\":\"M.mkv\"}]}" ;
 						try {
-							url = new URL("http://128.199.85.175:8080/iiplayer/iiplayerServer?hash="+info_hash+"&index="+sf.getIndex() );
+							url = new URL("http://www.iiplayer.cn:8080/iiplayer/iiplayerServer?hash="+info_hash+"&index="+sf.getIndex() );
 							HttpURLConnection connection = (HttpURLConnection) url
 									.openConnection();
 

@@ -375,13 +375,19 @@ public class Mp4BaActivity extends AbActivity {
 			
 			
 			
-//		new Handler().postDelayed(new Runnable() {
-//
-//			@Override
-//			public void run() {
-//				 moreLoading();
-//			}
-//		}, 100); 
+
+			
+				new Handler().postDelayed(new Runnable() {
+
+					@Override
+					public void run() {
+						if (iswebjump) {
+							iswebjump=false;						 
+						 moreLoading();
+						 }
+					}
+				}, 3000); 
+		 
 
         webview.getSettings().setLoadWithOverviewMode(true);
         webview.getSettings().setUseWideViewPort(true);

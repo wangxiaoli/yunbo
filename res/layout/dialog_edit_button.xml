@@ -12,7 +12,8 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="48.0dip" >
+            android:layout_height="48.0dip"
+            android:visibility="gone" >
 
             <TextView
                 android:id="@+id/title_choices"
@@ -41,11 +42,12 @@
                android:layout_width="match_parent"
                android:layout_height="match_parent"
                android:layout_gravity="center_horizontal" >
+
   <EditText
-            android:id="@+id/editTextzb"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" 
-            android:hint="输入直播源"  >
+      android:id="@+id/editTextzb"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:hint="输入直播源" >
  
         </EditText>
    </RelativeLayout>

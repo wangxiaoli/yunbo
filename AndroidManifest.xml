@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yunbo.myyunbo"
-    android:versionCode="2016072301"
+    android:versionCode="2016072701"
     android:versionName="3.0" >
 
     <uses-sdk
@@ -176,6 +176,10 @@
         </activity>
         <activity
             android:name="com.yunbo.myyunbo.CaoPooActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.yunbo.myyunbo.BtdyttActivity"
             android:label="@string/app_name" >
         </activity>
     </application>
