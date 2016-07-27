@@ -116,7 +116,7 @@ public class BtdyttActivity extends AbActivity {
 									intent.setClass(BtdyttActivity.this, PlayUrlActivity.class);
 									intent.putExtras(bundle);
 									startActivity(intent);
-								} else if(Pattern.matches("[0-9a-zA-Z]{40}", url)){
+								} else if(Pattern.matches("[0-9a-fA-F]{40}", url)){
 									url=url.toLowerCase();
 									DyUtil.toGetPlayUrl(url, myContext);
 								}

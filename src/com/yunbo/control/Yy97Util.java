@@ -327,11 +327,11 @@ public class Yy97Util {
 						//http://ik345api.duapp.com/youkuyun/1.php?v=
 						//http://ik345api.duapp.com/youkuyun/1.php?v=%s"http://ik345api.duapp.com/youkuyun/1.php?v=%s"
 						//http://vipwobuka.bceapp.com/acfun87.php?vid=%s&type=mp4
-					obj.setUrl(getRedirects(String.format(ykyjx, id)));
+					//obj.setUrl(getRedirects(String.format(ykyjx, id)));
 					//obj.setUrl(String.format("http://pl.youku.com/partner/m3u8?ctype=85&oip=1&type=mp4&vid=%s", id));
 					}
-					return obj;
-					// return allyun3(id,".acfun");
+					//return obj;
+					 return allyun2(id,".acfun");
 				} 
 				if ("sohu".equals( strs[2])) {
 //					try {
@@ -948,6 +948,101 @@ public class Yy97Util {
 							.openConnection(); 
 					connection.setConnectTimeout(5000);
 					 connection.setRequestProperty("Referer", "http://yun3.97dyy.com/player/player.swf");
+					connection.connect();
+					InputStream inStrm = connection.getInputStream();
+
+					BufferedReader br = new BufferedReader(new InputStreamReader(
+							inStrm, "utf-8"));
+					String temp = "";
+					String html = "";
+					while ((temp = br.readLine()) != null) {
+						html = html + (temp + '\n');
+					}
+					try {
+						br.close();
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+					try {
+						connection.disconnect();
+					} catch (Exception e) {
+						// TODO: handle exception
+					}
+					System.out.println(html);
+					obj.setUrl(html);
+					int index=html.indexOf("<file><![CDATA[");
+					int end=html.indexOf("]", index);
+					String urls=html.substring(index+15, end);
+					obj.setUrl(urls);
+					/*urls+"|"+*/
+					while ((index=html.indexOf("CDATA[http",end))!=-1) {
+						end=html.indexOf("]", index);
+						urls=html.substring(index+6, end);
+						DyUtil.fileList.add(urls);
+					}
+					if (!urls.contains("|")) {
+						urls=getRedirects(urls);
+					}if(DyUtil.fileList.size()==0)
+					obj.setUrl(urls);
+					//if (urls.contains("youku")) {
+					//	obj.setUrl(getRedirects(String.format("http://v.1gnk.com"+httpjxurl+"http://v.youku.com/v_show/id_%s.html&ctype=phone", id)));
+					//}
+				} catch (Exception e) {
+					e.printStackTrace();
+					obj.setMsg("找不到重定向地址");
+					return obj;
+				}
+				return obj;
+			}
+
+			private Urldata allyun2(String id,String pidtag) {
+				// TODO Auto-generated method stub
+
+				String sign = "";
+				String playvid  = "";
+
+				Urldata obj=new Urldata(); 
+					 String urlString="http://yun2.97dyy.com/new/player/?pid="+id+pidtag;
+				try {
+												//http://yun2.kuai97.com/new2/player/?pid=
+					Document doc = Jsoup.connect(urlString)
+							.userAgent(DyUtil.userAgent1).timeout(10000)
+							.header("Referer", "http://www.kuai97.com/player/playdy/qvod.html")
+							.header("Accept-Language", "zh-CN").get();
+					String html = doc.html();
+					Pattern pat = Pattern.compile("var app='(.*?)'");
+
+					Matcher mat = pat.matcher(html);
+					if (mat.find()) {
+						sign = mat.group(1); 
+
+						pat = Pattern.compile("pid='(.*?)'");
+						mat = pat.matcher(html);
+
+						if (mat.find()) {
+							playvid = mat.group(1);  
+						}else {
+							obj.setMsg("找不到pid");
+							return obj;						 
+						}
+					}else {
+						obj.setMsg("找不到sign");
+						System.out.println(html);
+						return obj;						 
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					obj.setMsg("找不到sign");
+					return obj;
+				}
+				URL url;
+				try { 
+					url = new URL( sign+playvid);//+"&mobile=1"
+					System.out.println(url.toString());
+					HttpURLConnection connection = (HttpURLConnection) url
+							.openConnection(); 
+					connection.setConnectTimeout(5000);
+					 connection.setRequestProperty("Referer", urlString);
 					connection.connect();
 					InputStream inStrm = connection.getInputStream();
 

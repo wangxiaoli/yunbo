@@ -127,12 +127,12 @@ public class CZhiActivity extends AbActivity {
 						URL url;
 						try { 
 							String[] jx=new String[]{//"http://ik345api.duapp.com/youkuyun/1.php?v=%s"
-									"http://vip.4410yy.com/acfun87.php?vid=%s&type=mp4",
 									"http://proxy.dy208.com/youyun/%s",
 									"http://www.zaogood.com/acfun.php?vid=%s&type=mp4"
 						 	,"http://vipwobuka.bceapp.com/acfun87.php?vid=%s&type=mp4"
 									,"http://www.jisuphp.com/0525/ac.php?id=%s"
 							, "http://api.ourder.com/video/ssl/YkcrefHandler.ashx?id=%s",
+									"http://vip.4410yy.com/acfun87.php?vid=%s&type=mp4",
 									"http://ik345api.duapp.com/youkuyun/1.php?v=%s"};
 							String urlString=String.format(jx[jxindex=jxindex%jx.length], data.getUrl());
 							if (urlString.startsWith("http://proxy.dy208.com")) {

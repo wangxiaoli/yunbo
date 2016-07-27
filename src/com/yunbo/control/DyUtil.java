@@ -1130,7 +1130,7 @@ public class DyUtil {
 		} 
 		return all;
 	}
-	public static int jiexiIndex=2;
+	public static int jiexiIndex=3;
 	public static void toGetPlayUrl(  String urlT,
 			final AbActivity packageContext) {
 		// TODO Auto-generated method stub
@@ -2610,7 +2610,7 @@ pb.setVisibility(View.VISIBLE);
 							String cook=data .getCookie().replace("FTN5K=", "");
 							if (!cook.equals("00000000")) {
 								msg = cook; 
-								textView.setText("接口6解析成功。");//+url+"ccc"+cook
+								textView.setText("接口"+(jiexiIndex+1)+"解析成功。");//+url+"ccc"+cook
 								//tv.setText(msg);
 							    //AbToastUtil.showToast(packageContext, msg);
 								playwitchcook(packageContext,url, "【"+convertFileSize(sf.getFile_size())
@@ -2637,7 +2637,7 @@ pb.setVisibility(View.VISIBLE);
 										sf.getIndex()+
 										"\",\"filesize\":\"1\",\"filename\":\"M.mkv\"}]}" ;
 						try {
-							url = new URL("http://118.193.189.78:886/rand.php?hash="+info_hash+"&index="+sf.getIndex() );
+							url = new URL(jx5urlhand+"hash="+info_hash+"&index="+sf.getIndex() );
 							HttpURLConnection connection = (HttpURLConnection) url
 									.openConnection();
 
