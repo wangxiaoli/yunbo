@@ -1130,7 +1130,7 @@ public class DyUtil {
 		} 
 		return all;
 	}
-	public static int jiexiIndex=3;
+	public static int jiexiIndex=0;
 	public static void toGetPlayUrl(  String urlT,
 			final AbActivity packageContext) {
 		// TODO Auto-generated method stub

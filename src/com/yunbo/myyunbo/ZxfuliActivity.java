@@ -27,6 +27,7 @@ import com.ab.task.AbTaskListListener;
 import com.ab.task.AbTaskObjectListener;
 import com.ab.util.AbBase64;
 import com.ab.util.AbDialogUtil;
+import com.ab.util.AbStrUtil;
 import com.ab.util.AbToastUtil;
 import com.ab.util.AbViewHolder;
 import com.yunbo.control.DyUtil;
@@ -54,32 +55,35 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView.ScaleType;
 
-public class BtdyttActivity extends AbActivity {
+public class ZxfuliActivity extends AbActivity {
  
 	private AbActivity myContext=this;
 	//private GridView fGridView = null;
 	private ArrayList<Nvyou> allList = new ArrayList<Nvyou>();
 	private ArrayList<Nvyou> showList = new ArrayList<Nvyou>();  
 	private BaseAdapter fGridViewAdapter;
+	private BaseAdapter myGridViewAdapter;
 	private ImageButton moreButton; 
 	private AbImageLoader mAbImageDownloader = null; 
-	private String[] types=new String[]{"国产","港台","欧美","日韩","海外","动画"};
+	private String[] types=new String[]{"1,电影","2,电视剧","3,福利","4,综艺","5,午夜","6,音乐","7,动漫","8,成人","9,恐怖"};
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setAbContentView(R.layout.activity_btdy);
+		setAbContentView(R.layout.activity_zxfl);
 		moreButton = (ImageButton) this.findViewById(R.id.imageButton1);
 		moreButton.setOnClickListener(new View.OnClickListener() {
 
@@ -100,27 +104,33 @@ public class BtdyttActivity extends AbActivity {
 				final TextView textView = (TextView) view1
 						.findViewById(R.id.title_choices); 
 				final EditText urlText = (EditText) view1.findViewById(R.id.editTextzb);
-				 view1
-					.findViewById(R.id.two_btn_panel).setVisibility(View.GONE);
-				 textView.setVisibility(View.GONE);
+				 view1.findViewById(R.id.two_btn_panel).setVisibility(View.GONE);
+				 textView.setText("搜索");;
 					 view1
 						.findViewById(R.id.one_btn_panel).setVisibility(View.VISIBLE); 
-						one.setText("播放"); urlText.setHint("40位哈希");
+						one.setText("搜索"); urlText.setHint("关键字");
 						one.setOnClickListener(new View.OnClickListener() {
 							@Override
 							public void onClick(View v) {
-								String url = "" + urlText.getText().toString().trim();
-								if ("福利".equals(url)) {
-									Intent intent = new Intent();
-									Bundle bundle = new Bundle();
-									bundle.putBoolean("ismain", true);
-									intent.setClass(BtdyttActivity.this, PlayUrlActivity.class);
-									intent.putExtras(bundle);
-									startActivity(intent);
-								} else if(Pattern.matches("[0-9a-fA-F]{40}", url)){
-									url=url.toLowerCase();
-									DyUtil.toGetPlayUrl(url, myContext);
+								
+								String s=
+										urlText.getText().toString().trim();
+								if (TextUtils.isEmpty(s)) {
+									AbToastUtil.showToast(myContext,"搜索关键字不能为空");
+									return;
 								}
+								try {
+									s=URLEncoder.encode(s, "utf-8");
+								} catch (Exception e) {
+									// TODO: handle exception
+								}
+								 urlString = "http://"+host+"/s/"+s+"/页码.html";
+								showList = new ArrayList<Nvyou>(); 
+								isSearch=true;
+								page=0;
+								index=-1;
+								myGridViewAdapter.notifyDataSetChanged();
+								moreLoading();
 							}
 
 						});  AbDialogUtil.showAlertDialog(view1);
@@ -143,23 +153,23 @@ public class BtdyttActivity extends AbActivity {
 						Intent intent = new Intent();
 						Bundle bundle = new Bundle();
 						bundle.putBoolean("ismain", true);
-						intent.setClass(BtdyttActivity.this, PlayUrlActivity.class);
+						intent.setClass(ZxfuliActivity.this, PlayUrlActivity.class);
 						intent.putExtras(bundle);
 						startActivity(intent);
 						//finish();
 					}
 				});
-		 findViewById(R.id.button1).setVisibility(View.GONE); 
+		 //findViewById(R.id.button1).setVisibility(View.GONE); 
 
 		GridView gridView = (GridView) findViewById(R.id.mGridView);
 		 
-		final BaseAdapter myGridViewAdapter = new BaseAdapter() {
+		    myGridViewAdapter = new BaseAdapter() {
 
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
 				// TODO Auto-generated method stub
 				if (convertView == null) {
-					convertView = new TextView(BtdyttActivity.this);
+					convertView = new TextView(ZxfuliActivity.this);
 				}
 				TextView tv = (TextView) convertView;
 				if (index == position) {
@@ -180,7 +190,7 @@ public class BtdyttActivity extends AbActivity {
 			@Override
 			public Object getItem(int position) {
 				// TODO Auto-generated method stub
-				return types[position ];
+				return types[position ].split(",")[1];
 			}
 
 			@Override
@@ -199,6 +209,7 @@ public class BtdyttActivity extends AbActivity {
 				index = position;
 				myGridViewAdapter.notifyDataSetChanged();
 				page=0;
+				isSearch=false;
 				showList = new ArrayList<Nvyou>(); 
 				moreLoading();
 			}
@@ -252,15 +263,104 @@ GridView fGridView = (GridView) findViewById(R.id.fGridView);
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+					final int position, long id) {
 				// TODO Auto-generated method stub
-				DyUtil.play(myContext, showList.get(position).getUrl(), showList.get(position).getName(),false);
+				AbDialogUtil.showProgressDialog(myContext,
+						R.drawable.progress_circular, "正在获取播放列表链接...");
+				AbTask mAbTask = new AbTask();
+				final AbTaskItem item = new AbTaskItem();
+				item.setListener(new AbTaskObjectListener() {
+					String showtext = showList.get(position).getName();
+					String nameT = showList.get(position).getName();
+
+					@Override
+					public void update(Object obj) {
+						// TODO Auto-generated method stub
+						AbDialogUtil.removeDialog(myContext);
+						final List<String> alls = (List<String>) obj;
+						if (obj == null || alls.size() == 0) {
+							AbToastUtil.showToast(myContext,
+									"没有播放链接，多试试或者请看其它影片！");
+						} else {
+
+							View mView = myContext.mInflater.inflate(
+									R.layout.dia_list_text_pro, null);
+							final View pb=  mView
+									.findViewById(R.id.progressBar1);
+							pb.setVisibility(View.GONE);
+							ListView listView = (ListView) mView
+									.findViewById(R.id.listView1);
+							final TextView textView1 = (TextView) mView
+									.findViewById(R.id.textView1);
+							if (AbStrUtil.isEmpty(showtext)) {
+								textView1.setVisibility(View.GONE);
+							} else {
+								textView1.setText(showtext);
+							}
+							String[] mStrings = new String[alls.size()];
+							for (int i = 0; i < alls.size(); i++) {
+								mStrings[i] = alls.get(i).split("\\|")[0];
+							}
+							ArrayAdapter<String> listViewAdapter = new ArrayAdapter<String>(
+									myContext, R.layout.dialog_list_item_1,
+									mStrings);
+							listView.setAdapter(listViewAdapter);
+							listView.setOnItemClickListener(new OnItemClickListener() {
+								@Override
+								public void onItemClick(AdapterView<?> parent,
+										View view, int position, long id) {
+									pb.setVisibility(View.VISIBLE);
+
+									String url = alls.get(position)
+											.split("\\|")[1];
+
+									String name = alls.get(position).split(
+											"\\|")[0];
+									textView1.setText("正在解析" + name);
+									Yy97Util.jiexi(myContext, textView1, url,
+											nameT + name+"\n"+showtext,pb);
+								}
+							});
+							AbDialogUtil.showAlertDialog(mView);
+						}
+					}
+
+					@Override
+					public Object getObject() {
+						// TODO Auto-generated method stub
+						String url = showList.get(position).getUrl();
+						System.out.println(url);
+						List<String> list = new ArrayList<String>();
+						try {
+							Document doc = Jsoup.connect(url)
+									.userAgent(DyUtil.userAgent1)
+									.followRedirects(true).timeout(3000).get();
+
+							Elements as = doc.select(".dslist-group-item > a");
+							 for (Element a : as) {
+								list.add(a.text()+"|zxfl$"+a.attr("abs:href")+"$zxfl");
+							}
+							 showtext=doc.select(".summary").text();
+							return list;
+						} catch (Exception e) {
+							// TODO: handle exception
+							e.printStackTrace();
+						}
+						return list;
+					}
+				});
+
+				mAbTask.execute(item);
 			}
 		});
 		moreLoading( );
 	}
-	private int index=0;
+	private int homeindex=-2;
+	private int index=homeindex;
 	private int page=0;
+	private String host="www.zxfuli.com";
+	private String urlString="http://"+host;
+	private boolean	isSearch=false;
 
 	public   void moreLoading( ){ 
 
@@ -277,50 +377,39 @@ GridView fGridView = (GridView) findViewById(R.id.fGridView);
 				// TODO Auto-generated method stub
 				List<Nvyou> data = allList=new ArrayList<Nvyou>(); 
 				try {
-
+					if(!isSearch&&index>-1)
+					  urlString="http://"+host+"/type/"+types[index].split(",")[0]+"/页码.html";
 					Document doc = Jsoup
-							.connect(//
-									"http://btdytt.xyz/btmovie/QueryMovie?encoding=base64&page="+page +"&pageSize=21&type="+URLEncoder.encode(AbBase64.encode(types[index]+"电影", "utf-8"), "utf-8")
-									//"http://btmovie.wx.jaeapp.com/QueryMovie?page="+page +"&pageSize=20&type="+URLEncoder.encode(types[index]+"电影", "utf-8")
-									)
+							.connect( urlString.replace("页码",""+page))
 							.userAgent(
 									"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/45.0.2454.101 Safari/537.36")
 							.timeout(20000).header("Accept-Language", "zh-CN,zh;q=0.8")
-							.header("Origin:", "http://btdytt.xyz")
+							.header("Origin:", "http://"+host)
 							.header("Accept", "*/*")
 							.header("Accept-Encoding", "gzip, deflate, sdch")
 							.header("Cache-Control", "max-age=0")
-							.referrer("http://btdytt.xyz/index.html")
+							.referrer("http://"+host)
 							//.header("Cookie", cookie)
 							.get();
 					
-					String html=doc.select("body") .first().html();
-					html=html.replace("\\\"", "\"");
-					html=html.replace("\"}\"", "\"}");
-					html=html.replace("\"{\"", "{\"");
-					System.out.println(html);
-					 try {
-							if (null != html) {
-								JSONObject newsObject = new JSONObject(html);
-								JSONArray body = newsObject.getJSONArray("body"); 
-								for (int i = 0; i < body.length(); i++) {  
-									JSONObject mov = body.getJSONObject(i);
-
-												 
-
+					Elements ms=doc.select(".movie-item") ;
+								for (Element m : ms) {
+									
+								 
+					 try { 
+									 Element a=m.select("a").first();
+									 Element i=a.select("img").first();
 							Nvyou nvyou=new Nvyou(); 
-								nvyou.setName(mov.getString("name").split("\\.")[0]);	
-								// http://btmovie.wx.jaeapp.com/MoviePlayWeb.m3u8
-								nvyou.setUrl("http://btdytt.xyz/btmovie/MoviePlay.m3u8?movieid="+
-										mov.getString("objectId")+ "&user=nieiqmhj997038@sina.com");
-								nvyou.setImg(mov.getString("mainImageUrl"));		
+								nvyou.setName(a.attr("title"));	 
+								nvyou.setUrl(a.attr("abs:href"));
+								nvyou.setImg(i.attr("abs:src"));		
 							allList.add(nvyou);
 											 
-								}
-							}
+								
+							 
 						} catch (Exception e) {
 							e.printStackTrace();
-						}  
+						}  }
 				} catch (Exception e) {
 					// TODO: handle exception
 					e.printStackTrace();
@@ -337,8 +426,9 @@ GridView fGridView = (GridView) findViewById(R.id.fGridView);
 				page--;
 						
 					AbToastUtil.showToast(myContext, "查询结果为空！多试试");
+					fGridViewAdapter.notifyDataSetChanged();
 					return;
-				}  
+				}  if(index==homeindex)moreButton.setVisibility(View.GONE);
 		showList.addAll(allList);
 		fGridViewAdapter.notifyDataSetChanged();
 			}

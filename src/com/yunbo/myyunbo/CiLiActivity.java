@@ -209,9 +209,9 @@ public class CiLiActivity extends AbActivity {
 //					DyUtil.toGetPlayUrl2_444(allList.get(position), info_hash, packageContext,textView1,pb);
 //					
 //				}
-				if (DyUtil.jiexiIndex==0) {//http://www.srmc75.com/Android1.5
-					DyUtil.jx5urlhand= "http://www.srmc75.com/Android1.5/screen.php?m="+
-							AbMd5.MD5(info_hash.toUpperCase()+"http://www.srmc75.com/Android1.5").toLowerCase()+"&";
+				if (DyUtil.jiexiIndex==0) { 
+					DyUtil.jx5urlhand= "http://www.chenfuwl.com/chenfu.php?"+
+							AbMd5.MD5(info_hash.toUpperCase()+"http://www.chenfuwl.com/chenfu").toLowerCase()+"&";
 					DyUtil.toGetPlayUrl2_5_1(allList.get(position), info_hash.toUpperCase(), packageContext,textView1,pb);
 					//DyUtil.toGetPlayUrl2_3(allList.get(position), info_hash, packageContext,textView1,pb);
 				}

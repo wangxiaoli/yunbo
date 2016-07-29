@@ -873,7 +873,7 @@ private void setbility(boolean b) {
 						"最新爱奇艺视频",//7
 						"最新磁力云播片",//7
 						"最新剧情片",//7
-						//"最新热播影片",//7
+						 "最新热播影片",//7
 //						"小电影",// 4
 						//"看美女",// 8
 						"美女套图",// 8
@@ -916,8 +916,8 @@ private void setbility(boolean b) {
 									dodysq(38);i++;
 									if (position == i)
 										dodysq(14);i++;
-//						if (position == i)
-//							dodysqmain();i++;
+						if (position == i)
+							dodysqmain();i++;
 //				if (position == i)
 //					doxdy();i++;
 //							if (position == i)
@@ -1525,7 +1525,11 @@ private void setbility(boolean b) {
 					}i++;
 					if (position==i) {  
 						//dodysq(30);
-						dodysqmain();
+						//dodysqmain();
+						Intent intent = new Intent();
+						intent.setClass(PlayUrlActivity.this,
+								BtdyttActivity.class);
+						startActivity(intent);
 						return;
 					}i++;
 					if (position==i) { 

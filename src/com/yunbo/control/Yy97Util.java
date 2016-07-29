@@ -28,6 +28,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
  
 
+
 import android.R.integer;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -313,6 +314,9 @@ public class Yy97Util {
 				if ("hd_iask333".equals( strs[2])) {
 					return hd_iask333(id);
 				}
+				if ("zxfl".equals( strs[2])) {
+					return zxfl(id);
+				}
 				if ("ku6".equals( strs[2])||"letv".equals( strs[2])) {
 					return allyun3(id,".letv");
 				} 
@@ -540,7 +544,70 @@ public class Yy97Util {
 				}
 				return obj;
 			}
+			private Urldata zxfl(String id) {
+				// TODO Auto-generated method stub
 
+				String sign = "";
+				String playvid  = "";
+
+				Urldata obj=new Urldata(); 
+				try {
+
+					Document doc = Jsoup.connect(id)
+							.userAgent(DyUtil.userAgent5).timeout(10000)
+							.header("Referer", id)
+							.header("Accept-Language", "zh-CN").get();
+					
+					 String jxurl= doc.getElementById("player_swf").attr("abs:src"); 
+                     doc = Jsoup.connect(jxurl )
+							.userAgent(DyUtil.userAgent5).timeout(10000)
+							.header("Referer", id)
+							.header("Accept-Language", "zh-CN").get();
+                   String html      = doc.html();
+					Pattern pat = Pattern.compile("video=\\['(.*?)'\\]");
+
+					Matcher mat = pat.matcher(html);
+					if (mat.find()) {
+						sign = mat.group(1); 
+						 if (!sign.startsWith("http")) {
+								String hand = jxurl.replace("http://", "").split(
+										"\\?")[0];
+								hand = hand.substring(0, hand.indexOf("/"));
+							sign="http://" + hand +sign;
+						}
+					}else {
+						obj.setMsg("找不到sign");
+						return obj;						 
+					}
+				} catch (Exception e) {
+					e.printStackTrace();
+					obj.setMsg("找不到sign");
+					return obj;
+				}
+				URL url;
+				try { 
+					url = new URL( sign );
+					HttpURLConnection connection = (HttpURLConnection) url
+							.openConnection(); 
+					connection.setConnectTimeout(5000);
+					connection.addRequestProperty("Referer", sign);
+					connection.addRequestProperty("X-Requested-With", "ShockwaveFlash/20.0.0.267");
+					connection.addRequestProperty("Accept", "*/*");
+					connection.addRequestProperty("Connection", "keep-alive");
+					connection.addRequestProperty("Accept-Language", "zh-CN,zh;q=0.8");
+					connection.addRequestProperty("Accept-Encoding", "gzip, deflate, sdch");
+					connection.addRequestProperty("User-Agent", DyUtil.userAgent5);
+					connection.setFollowRedirects(true);
+					//connection.connect();
+					connection.getResponseCode();
+					obj.setUrl(connection.getURL().toString());
+				} catch (Exception e) {
+					e.printStackTrace();
+					obj.setMsg("找不到重定向地址");
+					return obj;
+				}
+				return obj;
+			}
 			private Urldata qiyijx(String id) {
 				// TODO Auto-generated method stub
 
