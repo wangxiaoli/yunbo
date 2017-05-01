@@ -5,5 +5,7 @@
 输入密钥BU4K44LKKQYVHSVYNYNIVWCD6HSOEHLB6<br>
 同步<br>
 2.<br>
-【510版本】https://drop.me/BP0gVB
+【510版本】https://drop.me/BP0gVB<br>
+微信赞助<br>
+![微信赞助](http://wx4.sinaimg.cn/large/6d79e82agy1ff5stt4g93j2062065wep.jpg)
 
